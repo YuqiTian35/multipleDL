@@ -1,0 +1,34 @@
+Package: multipledls
+Title: Multiple DLs by CPM 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Yuqi",
+           family = "Tian",
+           role = c("aut", "cre"),
+           email = "yuqi.tian@vanderbilt.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Build CPMs (cumulative probability models, also known as cumulative link models) to account for multiple DLs (detection limits) in the response variables. Conditional quantiles and conditional CDFs can be calculated based on estimated parameters.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Biarch: true
+Depends: 
+    R (>= 3.4.0), 
+    SparseM
+Imports: 
+    methods,
+    Rcpp (>= 0.12.0),
+    RcppParallel (>= 5.0.1),
+    rstan (>= 2.18.1),
+    rstantools (>= 2.1.1)
+LinkingTo: 
+    BH (>= 1.66.0),
+    Rcpp (>= 0.12.0),
+    RcppEigen (>= 0.3.3.3.0),
+    RcppParallel (>= 5.0.1),
+    rstan (>= 2.18.1),
+    StanHeaders (>= 2.18.0),
+SystemRequirements: GNU make
