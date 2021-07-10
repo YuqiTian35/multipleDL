@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 hessian <- function(n, p, kint, nx, x, y, delta, pr, fa, fb, fpa, fpb, fppa, fppb, l, lia) {
-    .Call(`_multipledls_hessian`, n, p, kint, nx, x, y, delta, pr, fa, fb, fpa, fpb, fppa, fppb, l, lia)
+    .Call(`_multipleDL_hessian`, n, p, kint, nx, x, y, delta, pr, fa, fb, fpa, fpb, fppa, fppb, l, lia)
 }
 

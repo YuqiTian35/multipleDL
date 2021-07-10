@@ -1,11 +1,11 @@
-#' The 'multipledls' package.
+#' The 'multipleDL' package.
 #'
 #' @description A DESCRIPTION OF THE PACKAGE
 #'
 #' @docType package
-#' @name multipledls-package
-#' @aliases multipledls
-#' @useDynLib multipledls, .registration = TRUE
+#' @name multipleDL-package
+#' @aliases multipleDL
+#' @useDynLib multipleDL, .registration = TRUE
 #' @import methods
 #' @import Rcpp
 #' @importFrom rstan sampling

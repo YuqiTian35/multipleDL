@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // hessian
 List hessian(int n, int p, int kint, int nx, NumericMatrix x, IntegerVector y, IntegerVector delta, NumericVector pr, NumericVector fa, NumericVector fb, NumericVector fpa, NumericVector fpb, NumericVector fppa, NumericVector fppb, int l, int lia);
-RcppExport SEXP _multipledls_hessian(SEXP nSEXP, SEXP pSEXP, SEXP kintSEXP, SEXP nxSEXP, SEXP xSEXP, SEXP ySEXP, SEXP deltaSEXP, SEXP prSEXP, SEXP faSEXP, SEXP fbSEXP, SEXP fpaSEXP, SEXP fpbSEXP, SEXP fppaSEXP, SEXP fppbSEXP, SEXP lSEXP, SEXP liaSEXP) {
+RcppExport SEXP _multipleDL_hessian(SEXP nSEXP, SEXP pSEXP, SEXP kintSEXP, SEXP nxSEXP, SEXP xSEXP, SEXP ySEXP, SEXP deltaSEXP, SEXP prSEXP, SEXP faSEXP, SEXP fbSEXP, SEXP fpaSEXP, SEXP fpbSEXP, SEXP fppaSEXP, SEXP fppbSEXP, SEXP lSEXP, SEXP liaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,12 +36,12 @@ END_RCPP
 RcppExport SEXP _rcpp_module_boot_stan_fit4multipe_dls_cpm_mod();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_multipledls_hessian", (DL_FUNC) &_multipledls_hessian, 16},
+    {"_multipleDL_hessian", (DL_FUNC) &_multipleDL_hessian, 16},
     {"_rcpp_module_boot_stan_fit4multipe_dls_cpm_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4multipe_dls_cpm_mod, 0},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_multipledls(DllInfo *dll) {
+RcppExport void R_init_multipleDL(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

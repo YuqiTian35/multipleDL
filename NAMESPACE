@@ -2,10 +2,10 @@
 
 export(cdf_dl)
 export(func_link)
-export(multipledls)
+export(multipleDL)
 export(quantile_dl)
 export(selectedQr)
 import(Rcpp)
 import(methods)
 importFrom(rstan,sampling)
-useDynLib(multipledls, .registration = TRUE)
+useDynLib(multipleDL, .registration = TRUE)

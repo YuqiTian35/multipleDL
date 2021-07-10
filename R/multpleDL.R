@@ -9,7 +9,7 @@
 #' @param link the link function
 #' @return A list of results: coefficients, covariance matrix, unique response values, number of alphas, number of betas, link functions
 #' @export
-multipledls <- function(formula, data, delta_lower = NULL, delta_upper = NULL, link){
+multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, link){
 
   mf <- model.frame(formula=formula, data=data)
   terms <- attr(mf, "terms")
