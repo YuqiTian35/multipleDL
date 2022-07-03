@@ -15,11 +15,11 @@ func_V(coef, n, x, y, delta, k, p, fam)
 
 \item{y}{ranks of code values}
 
-\item{delta}{censoring indiactors}
+\item{delta}{censoring indicators}
 
-\item{k}{number of unique code values}
+\item{k}{the number of unique code values}
 
-\item{p}{number of covariates}
+\item{p}{the number of covariates}
 
 \item{fam}{a list of functions subject to the link function}
 }
@@ -27,5 +27,5 @@ func_V(coef, n, x, y, delta, k, p, fam)
 A covariance matrix of coefficients
 }
 \description{
-This functions calculates the convariance matrix based on the point estimations
+This functions calculates the covariance matrix based on the point estimates
 }

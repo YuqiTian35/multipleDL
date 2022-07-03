@@ -7,18 +7,54 @@
 cdf_dl(mod, new.data, at.y = 0, se = TRUE)
 }
 \arguments{
-\item{mod}{the multiple DLs model}
+\item{mod}{the model}
 
 \item{new.data}{the new data}
 
-\item{at.y}{P(y <= at.y | new.data)}
+\item{at.y}{a numeric vector of cut-off points P(y <= at.y | new.data)}
 
 \item{se}{if confidence intervals needed (default = TRUE)}
 }
 \value{
-A list of estimation, standard error, and confidence intervals
+A list containing the following components:
+
+\item{est}{a vector of estimated condtional CDFs}
+
+\item{se}{a vector of estimated standard errors}
+
+\item{lb}{a vector of estimated lower bounds of 95\% confidence intervals}
+
+\item{ub}{a vector of estimated upper bounds of 95\% confidence intervals}
 }
 \description{
-This functions calculates the conditional CDFs based on the model
+This functions calculates the conditional CDFs based on the fitted model
 and new data.
+}
+\examples{
+#' @examples
+## Multiple DLs
+## generate a small example data: 3 sites with different lower and upper DLs
+## lower DLs: site 1: - 0.2; site 2: 0.3; site 3: no lower DL
+## upper DLs: site 1: no upper DL; site 2: 4; site 3: 3.5
+## each site includes 100 subjects
+n <- 100
+x <- rnorm(n * 3)
+e <- rnorm(n * 3)
+y <- exp(x + e)
+no_dl <- 1e6
+data <- data.frame(y = y, x = x, subset = rep(c(1, 2, 3), each=n))
+data$dl_l <- ifelse(data$subset == 1, 0.2, ifelse(data$subset == 2, 0.3, -no_dl))
+data$dl_u <- ifelse(data$subset == 1, no_dl, ifelse(data$subset == 2, 4, 3.5))
+data$delta_l <- ifelse(data$y >= data$dl_l, 1, 0)
+data$delta_u <- ifelse(data$y <= data$dl_u, 1, 0)
+data$z <- ifelse(data$delta_l == 0, data$dl_l, ifelse(data$delta_u == 0, data$dl_u, data$y))
+# model
+mod <- multipleDL(formula = z ~ x, data = data,
+                 delta_lower = data$delta_l, delta_upper = data$delta_u, link='probit')
+# new data
+new.data <- data.frame(x = c(0, 1))
+conditional_median <- quantile_dl(mod, new.data, probs = 0.5)
+conditional_cdf <- cdf_dl(mod, new.data, at.y = 1.5) # P(y <= 1.5 | new.data)
+
+
 }

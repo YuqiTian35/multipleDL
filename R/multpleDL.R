@@ -1,14 +1,77 @@
-#' CPMs for multiple DLs
+#' CPMs for multiple detection limits
 #'
-#' This function build the CPM for multiple DLs
+#' This function build the CPM for multiple detection limits (DLs).
 #'
-#' @param formula a R formula object
-#' @param data a data frame
+#' @param formula an R formula object
+#' @param data a data frame including response data and covariates
 #' @param delta_lower (optional) indicators of lower DLs censoring (1: observed; 0:censored). If not specified, treat as observed.
 #' @param delta_upper (optional) indicators of upper DLs censoring(1: observed; 0:censored). If not specified, treat as observed.
-#' @param link the link function
-#' @return A list of results: coefficients, covariance matrix, unique response values, number of alphas, number of betas, link functions
+#' @param link the link function (probit, logit, loglog, cloglog)
+#' @return A list containing the following components:
+#' @return \item{coef}{a numeric vector of estimated coeffiencts}
+#' @return \item{var}{covariance matrix of estimated coeffiencts}
+#' @return \item{yunique}{a numeric vector of unique response values}
+#' @return \item{kint}{number of alphas (intercept terms)}
+#' @return \item{p}{number of betas (regression coeffiencts)}
+#' @return \item{fam}{a list of functions associated with the specified link function}
 #' @export
+#'
+#' @details When there are multiple DLs, we appropriately modify the CPM likelihood.
+#' If a value is below a lower DL, set the censored value as the lower DL and set the
+#' lower DL indicator `delta_lower` to be 0. Similarly, if a value is above an upper DL,
+#' set the censored value as the upper DL and set the upper DL indicator `delta_upper` to be 0.
+#' This function also works when there is only a single lower and/or upper DL.
+#'
+#' Conditional quantiles and CDFs and corresponding 95% confidence intervals can be calculated
+#' from the model fit.
+#'
+#' @seealso \code{\link{cdf_dl}, \link{quantile_dl}}
+#'
+#' @references
+#' Tian et al. "Addressing detection limits by semiparametric cumulative probability models." (2022) (to be submitted)
+#' @references
+#' Stan Development Team (2020). RSroxygen2::roxygenize()tan: the R interface to Stan. R package version 2.19.3. https://mc-stan.org
+#' @references
+#' Harrell, F. (2020). rms: Regression modeling strategies. R package version 6.1.0. https://CRAN.R-project.org/package=rms
+#'
+#'
+#' @examples
+#' ## Multiple DLs
+#' ## generate a small example data: 3 sites with different lower and upper DLs
+#' ## lower DLs: site 1: - 0.2; site 2: 0.3; site 3: no lower DL
+#' ## upper DLs: site 1: no upper DL; site 2: 4; site 3: 3.5
+#' ## each site includes 100 subjects
+#' n <- 100
+#' x <- rnorm(n * 3)
+#' e <- rnorm(n * 3)
+#' y <- exp(x + e)
+#' no_dl <- 1e6
+#' data <- data.frame(y = y, x = x, subset = rep(c(1, 2, 3), each=n))
+#' data$dl_l <- ifelse(data$subset == 1, 0.2, ifelse(data$subset == 2, 0.3, -no_dl))
+#' data$dl_u <- ifelse(data$subset == 1, no_dl, ifelse(data$subset == 2, 4, 3.5))
+#' data$delta_l <- ifelse(data$y >= data$dl_l, 1, 0)
+#' data$delta_u <- ifelse(data$y <= data$dl_u, 1, 0)
+#' data$z <- ifelse(data$delta_l == 0, data$dl_l, ifelse(data$delta_u == 0, data$dl_u, data$y))
+#' # model
+#' mod <- multipleDL(formula = z ~ x, data = data,
+#'                  delta_lower = data$delta_l, delta_upper = data$delta_u, link='probit')
+#' # new data
+#' new.data <- data.frame(x = c(0, 1))
+#' conditional_median <- quantile_dl(mod, new.data, probs = 0.5)
+#' conditional_cdf <- cdf_dl(mod, new.data, at.y = 1.5) # P(y <= 1.5 | new.data)
+#'
+#'
+#' ## Single DL: lower DL at 0.5
+#' n <- 100
+#' x <- rnorm(n)
+#' e <- rnorm(n)
+#' y <- exp(x + e)
+#' lower_dl <- 0.5
+#' data <- data.frame(y = y, x = x)
+#' data$delta_lower <- ifelse(data$y >= lower_dl, 1, 0)
+#' data$z <- ifelse(data$delta_lower == 0, lower_dl, data$y)
+#' mod <- multipleDL(formula = z ~ x, data = data,
+#'                   delta_lower = data$delta_l, link='probit')
 multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, link){
 
   mf <- model.frame(formula=formula, data=data)

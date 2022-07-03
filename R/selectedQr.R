@@ -1,12 +1,18 @@
 #' QR Decomposition Preserving Selected Columns
 #'
-##' Runs a matrix through the QR decomposition and returns the transformed matrix and the forward and inverse transforming matrices `R, Rinv`.  If columns of the input matrix `X` are centered the QR transformed matrix will be orthogonal.  This is helpful in understanding the transformation and in scaling prior distributions on the transformed scale.  `not` can be specified to keep selected columns as-is.  `cornerQr` leaves the last column of `X` alone (possibly after centering).  When `not` is specified, the square transforming matrices have appropriate identity submatrices inserted so that recreation of original `X` is automatic.
+##' Runs a matrix through the QR decomposition and returns the transformed matrix and the forward and inverse transforming matrices
+##' `R, Rinv`.  If columns of the input matrix `X` are centered the QR transformed matrix will be orthogonal.
+##'  This is helpful in understanding the transformation and in scaling prior distributions on the transformed scale.
+##' `not` can be specified to keep selected columns as-is.
+##' `cornerQr` leaves the last column of `X` alone (possibly after centering).
+##'  When `not` is specified, the square transforming matrices have appropriate identity submatrices inserted
+##' so that recreation of original `X` is automatic.
 ##' @param X a numeric matrix
 ##' @param not an integer vector specifying which columns of `X` are to be kept with their original values
 ##' @param corner set to `FALSE` to not treat the last column specially.  You may not specify both `not` and `corner`.
 ##' @param center set to `FALSE` to not center columns of `X` first
 ##' @return list with elements `X, R, Rinv, xbar` where `xbar` is the vector of means (vector of zeros if `center=FALSE`)
-#' @export
+#'  @export
 selectedQr <- function(X, not=NULL, corner=FALSE, center=TRUE) {
   if(center) {
     X    <- scale(X, center=TRUE, scale=FALSE)

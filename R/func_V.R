@@ -1,14 +1,14 @@
 #' Calculate the covariance matrix
 #'
-#' This functions calculates the convariance matrix based on the point estimations
+#' This functions calculates the covariance matrix based on the point estimates
 #'
 #' @param coef coefficients (alpha, beta)
 #' @param n number of subjects
 #' @param x original covariate matrix
 #' @param y ranks of code values
-#' @param delta censoring indiactors
-#' @param k number of unique code values
-#' @param p number of covariates
+#' @param delta censoring indicators
+#' @param k the number of unique code values
+#' @param p the number of covariates
 #' @param fam a list of functions subject to the link function
 #' @return A covariance matrix of coefficients
 func_V <- function(coef, n, x, y, delta, k, p, fam){

@@ -7,18 +7,24 @@
 quantile_dl(mod, new.data, probs = 0.5, se = TRUE)
 }
 \arguments{
-\item{mod}{the multiple DLs model}
+\item{mod}{the model}
 
 \item{new.data}{the new data}
 
-\item{probs}{pth quantiles}
+\item{probs}{a numeric vector of pth quantiles}
 
 \item{se}{if confidence intervals needed (default = TRUE)}
 }
 \value{
-A list of estimation and confidence intervals
+A list containing the following components:
+
+\item{est}{a vector of estimated condtional quantiles}
+
+\item{lb}{a vector of estimated lower bounds of 95\% confidence intervals}
+
+\item{ub}{a vector of estimated upper bounds of 95\% confidence intervals}
 }
 \description{
-This functions calculates the conditional weighted quantiles based on the model
+This functions calculates the conditional weighted quantiles based on the fitted model
 and new data.
 }

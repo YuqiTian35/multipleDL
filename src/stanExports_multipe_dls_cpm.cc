@@ -7,7 +7,7 @@ using namespace Rcpp ;
 RCPP_MODULE(stan_fit4multipe_dls_cpm_mod) {
 
 
-    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("model_multipe_dls_cpm")
+    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("rstantools_model_multipe_dls_cpm")
 
     .constructor<SEXP,SEXP,SEXP>()
 

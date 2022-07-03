@@ -17,7 +17,14 @@ selectedQr(X, not = NULL, corner = FALSE, center = TRUE)
 }
 \value{
 list with elements \verb{X, R, Rinv, xbar} where \code{xbar} is the vector of means (vector of zeros if \code{center=FALSE})
+@export
 }
 \description{
-Runs a matrix through the QR decomposition and returns the transformed matrix and the forward and inverse transforming matrices \verb{R, Rinv}.  If columns of the input matrix \code{X} are centered the QR transformed matrix will be orthogonal.  This is helpful in understanding the transformation and in scaling prior distributions on the transformed scale.  \code{not} can be specified to keep selected columns as-is.  \code{cornerQr} leaves the last column of \code{X} alone (possibly after centering).  When \code{not} is specified, the square transforming matrices have appropriate identity submatrices inserted so that recreation of original \code{X} is automatic.
+Runs a matrix through the QR decomposition and returns the transformed matrix and the forward and inverse transforming matrices
+\verb{R, Rinv}.  If columns of the input matrix \code{X} are centered the QR transformed matrix will be orthogonal.
+This is helpful in understanding the transformation and in scaling prior distributions on the transformed scale.
+\code{not} can be specified to keep selected columns as-is.
+\code{cornerQr} leaves the last column of \code{X} alone (possibly after centering).
+When \code{not} is specified, the square transforming matrices have appropriate identity submatrices inserted
+so that recreation of original \code{X} is automatic.
 }

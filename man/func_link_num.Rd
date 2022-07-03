@@ -2,7 +2,7 @@
 % Please edit documentation in R/link_function.R
 \name{func_link_num}
 \alias{func_link_num}
-\title{Link functions number}
+\title{Link functions (number)}
 \usage{
 func_link_num(link)
 }
@@ -13,5 +13,5 @@ func_link_num(link)
 An integer representing corresponding link function
 }
 \description{
-This function faciliates the stan code
+This function faciliates the stan code (used as an internal function)
 }

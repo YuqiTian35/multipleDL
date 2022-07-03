@@ -1,14 +1,19 @@
-#' Link functions number
+#' Link functions (number)
 #'
-#' This function faciliates the stan code
+#' This function faciliates the stan code (used as an internal function)
 #'
 #' @param link the link function
 #' @return An integer representing corresponding link function
 func_link_num <- function(link){
-  return(case_when(link == "logit" ~ 1,
-                   link == "probit" ~ 2,
-                   link == "loglog" ~ 3,
-                   link == "cloglog" ~ 4))
+  if(link == 'logit'){
+    return(1)
+  }else if(link == 'probit'){
+    return(2)
+  }else if(link == 'loglog'){
+    return(3)
+  }else if(link == 'cloglog'){
+    return(4)
+  }
 }
 
 #' Link functions
