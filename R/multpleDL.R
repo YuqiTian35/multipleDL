@@ -131,8 +131,10 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
     sprintf("No observed values between lower detection limits %f and %f. Merging them into one detection limit %f",
           dl_l[ind_l], dl_l[ind_l+1L], dl_l[ind_l+1L])
     # keep the larger lower DL
-    if(length(ind_l) > 0) dl_l <- dl_l[-ind_l]
-
+    if(length(ind_l) > 0){
+      dl_l <- dl_l[-ind_l]
+      z[z == dl_l[ind_l]] <- dl_l[ind_l+1L]
+    }
   }
 
   # check if there is no observations between two DLs
@@ -141,7 +143,10 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
     sprintf("No observed values between upper detection limits %f and %f. Merging them into one detection limit %f",
             dl_u[ind_u-1L], dl_u[ind_u], dl_u[ind_u])
     # keep the smaller upper DL
-    if(length(ind_u) > 0) dl_u <- dl_u[-(ind_u-1)]
+    if(length(ind_u) > 0){
+      dl_u <- dl_u[-(ind_u-1)]
+      z[z == dl_u[ind_u-1L]] <- dl_u[ind_u]
+    }
   }
 
 
@@ -181,9 +186,17 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
     }else if(!delta_upper[i] & z_J1 & z[i] == dl_u[1]){
       return(S[length(S)])
     }else if(!delta_lower[i]){
-      return(S[max(which(S < z[i]))])
+      if(length(which(S < z[i])) == 0){
+        return(S[1])
+      }else{
+        return(S[max(which(S < z[i]))])
+      }
     }else if(!delta_upper[i]){
-      S[min(which(S > z[i]))]
+      if(length(which(S > z[i])) == 0){
+        return(S[length(S)])
+      }else{
+        S[min(which(S > z[i]))]
+      }
     }else{
       return(NA)
     }
