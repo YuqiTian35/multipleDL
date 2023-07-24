@@ -67,6 +67,7 @@ cdf_dl <- function(mod, new.data, at.y=0, se=TRUE){
 
   if(se){
     deriv <- fam$deriv
+    if(fam$name == 'logit') deriv <- function(x) exp(-x)/(1+exp(-x))^2
 
     cdf.se <- matrix(NA, ncol=length(at.y), nrow=dim(new.data)[1])
     lb.se <- matrix(NA, ncol=length(at.y), nrow=dim(new.data)[1])
@@ -183,6 +184,7 @@ quantile_dl <- function(mod, new.data, probs=0.5, se=TRUE){
 
   if(se){
     deriv <- fam$deriv
+    if(fam$name == 'logit') deriv <- function(x) exp(-x)/(1+exp(-x))^2
 
     quantile.lb <- quantile.ub <- matrix(NA, nrow=dim(new.data)[1], ncol=length(probs))
     lb.se <- matrix(NA, ncol=dim(lb)[2], nrow=dim(new.data)[1])

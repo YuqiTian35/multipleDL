@@ -77,6 +77,7 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
   mf <- model.frame(formula=formula, data=data)
   terms <- attr(mf, "terms")
   x <- as.matrix(model.matrix(terms, data=mf)[,-1]) # exclude intercept
+  coef_name <- colnames(model.matrix(terms, data=mf))[-1]
   z <- model.response(mf)
 
   ###########
@@ -224,7 +225,7 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
 
   # coefficiencts
   beta <- c(matrix(res.stan$par[grep("beta", names(res.stan$par))], nrow=1) %*% t(Rinv))
-  names(beta) <- attr(terms, 'term.labels')
+  names(beta) <- coef_name # attr(terms, 'term.labels')
   alpha <- res.stan$par[grep("alpha", names(res.stan$par))] + sum(beta * xbar)
   # alpha <- res.stan$par[grep("alpha", names(res.stan$par))] - sum(beta * xbar) # orm version
   coef <- c(alpha, beta)

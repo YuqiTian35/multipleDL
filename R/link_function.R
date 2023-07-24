@@ -29,24 +29,29 @@ func_link <- function(link){
            list(cumprob=function(x)    1 / (1 + exp(-x)),
                 inverse=function(x)    log(x / (1 - x)),
                 deriv  =function(x, f) f * (1 - f),
-                deriv2 =function(x, f, deriv) f * (1 - 3*f + 2*f*f) ),
+                deriv2 =function(x, f, deriv) f * (1 - 3*f + 2*f*f),
+                name = 'logit'),
+
          probit =
            list(cumprob=pnorm,
                 inverse=qnorm,
                 deriv  =function(x, ...)      dnorm(x),
-                deriv2 =function(x, f, deriv) - deriv * x),
+                deriv2 =function(x, f, deriv) - deriv * x,
+                name = 'probit'),
          loglog =
            list(cumprob=function(x)      exp(-exp(-x)),
                 inverse=function(x)      -log(-log(x    )),
                 deriv  =function(x, ...) exp(-x - exp(-x)),
                 deriv2 =function(x, ...) ifelse(abs(x) > 200, 0,
-                                                exp(-x - exp(-x)) * (-1 + exp(-x)))),
+                                                exp(-x - exp(-x)) * (-1 + exp(-x))),
+                name = 'loglog'),
          cloglog =
            list(cumprob=function(x)      1 - exp(-exp(x)),
                 inverse=function(x)      log(-log(1 - x)),
                 deriv  =function(x, ...) exp( x - exp( x)),
-                deriv2 =function(x, f, deriv) ifelse(abs(x) > 200, 0,
-                                                     deriv * ( 1 - exp( x)))))
+                deriv2 =function(x, f=cumprob, deriv) ifelse(abs(x) > 200, 0,
+                                                     deriv * ( 1 - exp( x))),
+                name = 'cloglog'))
 
   return(families[[link]])
 }
