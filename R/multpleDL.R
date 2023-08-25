@@ -239,7 +239,8 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
 
   return(list(coef = coef, var = var,
                yunique = yunique,
-               kint = J-1, p = p, fam = fam))
+               kint = J-1, p = p, fam = fam,
+               x = x))
 
 }
 
