@@ -79,6 +79,7 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
   x <- as.matrix(model.matrix(terms, data=mf)[,-1]) # exclude intercept
   coef_name <- colnames(model.matrix(terms, data=mf))[-1]
   z <- model.response(mf)
+  yunique <- sort(unique(z))
 
   ###########
   # DL indicators
@@ -237,7 +238,7 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
   rownames(var) <- colnames(var) <-  names(coef)
 
   return(list(coef = coef, var = var,
-               yunique = sort(unique(code_value)),
+               yunique = yunique,
                kint = J-1, p = p, fam = fam))
 
 }
