@@ -224,7 +224,9 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
                                 tol_obj = 1e-5,
                                 data = data_stan)
 
-  # coefficiencts
+  log_likelihood <- res.stan$value
+
+  # coefficients
   beta <- c(matrix(res.stan$par[grep("beta", names(res.stan$par))], nrow=1) %*% t(Rinv))
   names(beta) <- coef_name # attr(terms, 'term.labels')
   alpha <- res.stan$par[grep("alpha", names(res.stan$par))] + sum(beta * xbar)
@@ -240,7 +242,7 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
   return(list(coef = coef, var = var,
                yunique = yunique,
                kint = J-1, p = p, fam = fam,
-               x = x))
+               x = x, log_likelihood = log_likelihood))
 
 }
 
