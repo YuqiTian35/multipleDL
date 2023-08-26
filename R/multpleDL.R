@@ -224,8 +224,6 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
                                 tol_obj = 1e-5,
                                 data = data_stan)
 
-  log_likelihood <- res.stan$value
-
   # coefficients
   beta <- c(matrix(res.stan$par[grep("beta", names(res.stan$par))], nrow=1) %*% t(Rinv))
   names(beta) <- coef_name # attr(terms, 'term.labels')
@@ -239,10 +237,28 @@ multipleDL <- function(formula, data, delta_lower = NULL, delta_upper = NULL, li
                 k = J, p = p, fam = fam)
   rownames(var) <- colnames(var) <-  names(coef)
 
+  # log-likelihood
+  px <- fam$cumprob(outer(alpha, as.vector(x %*% beta), "-"))
+  ll <- sum(sapply(1:N, function(i){
+    if(delta[i] == 1){
+      return(log(c(px[,i], 1)[j[i]] - c(0, px[,i])[j[i]]))
+    }else if(delta[i] == 12){
+      return(0)
+    }else if(delta[i] == 13){
+      return(0)
+    }else if(delta[i] == 2){
+      return(log(c(px[,i], 1)[j[i]]))
+    }else if(delta[i] == 3){
+      return(log(1 - c(0, px[,i])[j[i]]))
+    }else{
+      return(NA)
+    }
+  }))
+
   return(list(coef = coef, var = var,
                yunique = yunique,
                kint = J-1, p = p, fam = fam,
-               x = x, log_likelihood = log_likelihood))
+               x = x, log_likelihood = ll))
 
 }
 

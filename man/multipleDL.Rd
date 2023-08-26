@@ -31,6 +31,10 @@ A list containing the following components:
 \item{p}{number of betas (regression coeffiencts)}
 
 \item{fam}{a list of functions associated with the specified link function}
+
+\item{x}{the design matrix}
+
+\item{log_likelihood}{the log-likelihood}
 }
 \description{
 This function build the CPM for multiple detection limits (DLs).
