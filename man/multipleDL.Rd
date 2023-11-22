@@ -88,7 +88,8 @@ mod <- multipleDL(formula = z ~ x, data = data,
                   delta_lower = data$delta_l, link='probit')
 }
 \references{
-Tian et al. "Addressing detection limits by semiparametric cumulative probability models." (2022) (to be submitted)
+
+Tian, Y., Li, C., Tu, S., James, N. T., Harrell, F. E., & Shepherd, B. E. (2022). Addressing Detection Limits with Semiparametric Cumulative Probability Models. arXiv preprint arXiv:2207.02815.
 
 Stan Development Team (2020). RSroxygen2::roxygenize()tan: the R interface to Stan. R package version 2.19.3. https://mc-stan.org
 

@@ -49,7 +49,7 @@ func_link <- function(link){
            list(cumprob=function(x)      1 - exp(-exp(x)),
                 inverse=function(x)      log(-log(1 - x)),
                 deriv  =function(x, ...) exp( x - exp( x)),
-                deriv2 =function(x, f=cumprob, deriv) ifelse(abs(x) > 200, 0,
+                deriv2 =function(x, f, deriv) ifelse(abs(x) > 200, 0,
                                                      deriv * ( 1 - exp( x))),
                 name = 'cloglog'))
 

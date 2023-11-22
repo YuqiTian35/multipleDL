@@ -1,13 +1,16 @@
 Package: multipleDL
-Title: Addressing Detection Limits by Cumulative Probability Models (CPMs)
 Version: 1.0.0
-Date: 2022-04-28
-Author: Yuqi Tian [aut, cre]
-Maintainer: Chun Li <cli77199@usc.edu>
-Description: Build CPMs (cumulative probability models, also known as cumulative link models) to account for detection limits (both single and multiple detection limits) in response variables. Conditional quantiles and conditional CDFs can be calculated based on fitted models.
+Date: 2023-11-17
+Title: Addressing Detection Limits by Cumulative Probability Models (CPMs)
+Authors@R: c(person("Yuqi", "Tian", role=c("aut", "cre"), email="yuqitian35@gmail.com"),
+	     person("Chun", "Li", role="aut"),
+	     person("Shengxin", "Tu", role="aut"),
+	     person("Nathan", "James", role="aut"),
+	     person("Frank", "Harrell", role="aut"),
+	     person("Bryan", "Shepherd", role="aut"))
+Description: Build CPMs (cumulative probability models, also known as cumulative link models) to account for detection limits (both single and multiple detection limits) in response variables. Conditional quantiles and conditional CDFs can be calculated based on fitted models. The package implements methods described in Tian, Y., Li, C., Tu, S., James, N. T., Harrell, F. E., & Shepherd, B. E. (2022). Addressing Detection Limits with Semiparametric Cumulative Probability Models. <arXiv:2207.02815>.
 License: GPL (>= 2)
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Biarch: true
@@ -27,5 +30,5 @@ LinkingTo:
     RcppEigen (>= 0.3.3.3.0),
     RcppParallel (>= 5.0.1),
     rstan (>= 2.18.1),
-    StanHeaders (>= 2.18.0),
+    StanHeaders (>= 2.18.0)
 SystemRequirements: GNU make
