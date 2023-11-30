@@ -8,7 +8,7 @@ Authors@R: c(person("Yuqi", "Tian", role=c("aut", "cre"), email="yuqitian35@gmai
 	     person("Nathan", "James", role="aut"),
 	     person("Frank", "Harrell", role="aut"),
 	     person("Bryan", "Shepherd", role="aut"))
-Description: Build CPMs (cumulative probability models, also known as cumulative link models) to account for detection limits (both single and multiple detection limits) in response variables. Conditional quantiles and conditional CDFs can be calculated based on fitted models. The package implements methods described in Tian, Y., Li, C., Tu, S., James, N. T., Harrell, F. E., & Shepherd, B. E. (2022). Addressing Detection Limits with Semiparametric Cumulative Probability Models. <arXiv:2207.02815>.
+Description: Build CPMs (cumulative probability models, also known as cumulative link models) to account for detection limits (both single and multiple detection limits) in response variables. Conditional quantiles and conditional CDFs can be calculated based on fitted models. The package implements methods described in Tian, Y., Li, C., Tu, S., James, N. T., Harrell, F. E., & Shepherd, B. E. (2022). "Addressing Detection Limits with Semiparametric Cumulative Probability Models". <arXiv:2207.02815>.
 License: GPL (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
