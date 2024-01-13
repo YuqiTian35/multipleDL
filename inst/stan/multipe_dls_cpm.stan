@@ -2,13 +2,13 @@ functions {
     real func_link(real x, int link_num) {
       if (link_num == 1) return(inv_logit(x));
       else if (link_num == 2) return(Phi(x));
-      else if (link_num == 3) return(gumbel_cdf(x, 0, 1));
+      else if (link_num == 3) return(gumbel_cdf(x | 0, 1));
       else if (link_num == 4) return(inv_cloglog(x));
       else return x;
     }
     // # 1 = logistic; 2 = probit; 3 = loglog; 4 = cloglog
 
-  vector loglik(vector alpha, vector beta, int[] delta, row_vector[] X, int[] j, int link_num) {
+  vector loglik(vector alpha, vector beta, array[] int delta, array[] row_vector X, array[] int j, int link_num) {
       int N = size(X);
       vector[N] out;
       int J = max(j);
@@ -31,10 +31,10 @@ functions {
 data {
    int<lower = 1> N;   // number of observations
    int<lower = 1> p;   // number of predictors
-   row_vector[p] X[N];     // columnwise CENTERED predictors
+   array[N] row_vector[p] X;     // columnwise CENTERED predictors
    int<lower = 2> J;   // number of outcome categories
-   int<lower = 1, upper = J> j[N]; // outcome on 1 ... J'
-   int delta[N]; //detection indicator
+   array[N] int<lower = 1, upper = J> j; // outcome on 1 ... J'
+   array[N] int delta; //detection indicator
    int link_num; // link function
 
    // prior standard deviations
